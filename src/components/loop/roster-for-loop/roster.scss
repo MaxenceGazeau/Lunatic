@@ -4,6 +4,8 @@
 		border-spacing: 0;
 		thead {
 			position: sticky;
+			background-color: var(--color-primary-contrast-text);
+			z-index: 1;
 			top: 0;
 			th {
 				border-top: 2px solid;
