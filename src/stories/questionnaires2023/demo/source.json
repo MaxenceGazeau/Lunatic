@@ -1,0 +1,264 @@
+{
+	"id": "l8wwljboah",
+	"modele": "FPE_22",
+	"enoCoreVersion": "2.4.10",
+	"lunaticModelVersion": "2.3.4",
+	"generatingDate": "26-10-2023 06:32:31",
+	"missing": false,
+	"pagination": "question",
+	"maxPage": "3",
+	"label": {
+		"value": "VERIF CORR BUG tableaux dyn",
+		"type": "VTL|MD"
+	},
+	"components": [
+		{
+			"id": "ji4d7eko",
+			"componentType": "Sequence",
+			"page": "1",
+			"label": {
+				"value": "\"S1\"",
+				"type": "VTL|MD"
+			},
+			"conditionFilter": {
+				"value": "true",
+				"type": "VTL"
+			},
+			"hierarchy": {
+				"sequence": {
+					"id": "ji4d7eko",
+					"page": "1",
+					"label": {
+						"value": "\"S1\"",
+						"type": "VTL|MD"
+					}
+				}
+			}
+		},
+		{
+			"id": "jrc3ye5q",
+			"componentType": "RosterForLoop",
+			"mandatory": false,
+			"page": "2",
+			"positioning": "HORIZONTAL",
+			"label": {
+				"value": "\"➡ \" || \"Ceci est le libellé de la question qui collecte un tab dynamique\"",
+				"type": "VTL|MD"
+			},
+			"declarations": [
+				{
+					"id": "jrc3ye5q-jrc433y3",
+					"declarationType": "INSTRUCTION",
+					"position": "AFTER_QUESTION_TEXT",
+					"label": {
+						"value": "\"Ceci est une déclaration\"",
+						"type": "VTL|MD"
+					}
+				},
+				{
+					"id": "jrc3ye5q-lo6tav6i",
+					"declarationType": "HELP",
+					"position": "AFTER_QUESTION_TEXT",
+					"label": {
+						"value": "\"On a un controle colonne 2 > colonne 3 à tester\"",
+						"type": "VTL|MD"
+					}
+				}
+			],
+			"conditionFilter": {
+				"value": "true",
+				"type": "VTL"
+			},
+			"controls": [
+				{
+					"type": "roundabout",
+					"id": "jrc3ye5q-format-borne-inf-sup",
+					"typeOfControl": "FORMAT",
+					"criticality": "ERROR",
+					"iterations": { "value": "TABDYN3", "type": "VTL" },
+					"control": {
+						"value": "not(not(isnull(TABDYN2)) and (0>TABDYN2 or 100<TABDYN2))",
+						"type": "VTL"
+					},
+					"errorMessage": {
+						"value": "\" La valeur doit être comprise entre 0 et 100.\"",
+						"type": "VTL|MD"
+					}
+				},
+				{
+					"type": "roundabout",
+					"id": "jrc3ye5q-format-decimal",
+					"typeOfControl": "FORMAT",
+					"criticality": "ERROR",
+					"iterations": { "value": "TABDYN3", "type": "VTL" },
+					"control": {
+						"value": "not(not(isnull(TABDYN2))  and round(TABDYN2,0)<>TABDYN2)",
+						"type": "VTL"
+					},
+					"errorMessage": {
+						"value": "\"Le nombre doit comporter au maximum 0 chiffre(s) après la virgule.\"",
+						"type": "VTL|MD"
+					}
+				},
+				{
+					"type": "roundabout",
+					"id": "jrc3ye5q-format-borne-inf-sup",
+					"typeOfControl": "FORMAT",
+					"criticality": "ERROR",
+					"iterations": { "value": "TABDYN3", "type": "VTL" },
+					"control": {
+						"value": "not(not(isnull(TABDYN3)) and (0>TABDYN3 or 10<TABDYN3))",
+						"type": "VTL"
+					},
+					"errorMessage": {
+						"value": "\" La valeur doit être comprise entre 0 et 10.\"",
+						"type": "VTL|MD"
+					}
+				},
+				{
+					"type": "roundabout",
+					"id": "jrc3ye5q-format-decimal",
+					"typeOfControl": "FORMAT",
+					"criticality": "ERROR",
+					"iterations": { "value": "TABDYN3", "type": "VTL" },
+					"control": {
+						"value": "not(not(isnull(TABDYN3))  and round(TABDYN3,0)<>TABDYN3)",
+						"type": "VTL"
+					},
+					"errorMessage": {
+						"value": "\"Le nombre doit comporter au maximum 0 chiffre(s) après la virgule.\"",
+						"type": "VTL|MD"
+					}
+				}
+			],
+			"hierarchy": {
+				"sequence": {
+					"id": "ji4d7eko",
+					"page": "1",
+					"label": {
+						"value": "\"S1\"",
+						"type": "VTL|MD"
+					}
+				}
+			},
+			"bindingDependencies": [
+				"TABDYN1",
+				"TABDYN2",
+				"TABDYN3"
+			],
+			"lines": {
+				"min": {
+					"value": "1",
+					"type": "VTL"
+				},
+				"max": {
+					"value": "3",
+					"type": "VTL"
+				}
+			},
+			"headers": [
+				{
+					"label": {
+						"value": "\"Colonne 1 texte\"",
+						"type": "VTL|MD"
+					}
+				},
+				{
+					"label": {
+						"value": "\"Colonne 2 nombre entre 0 et 100 et unités\"",
+						"type": "VTL|MD"
+					}
+				},
+				{
+					"label": {
+						"value": "\"Colonne 3 entre 0 et 10\"",
+						"type": "VTL|MD"
+					}
+				}
+			],
+			"components": [
+				{
+					"componentType": "Input",
+					"maxLength": 249,
+					"id": "jrc3ye5q-QOP-lo6tcvvx",
+					"response": {"name": "TABDYN1"},
+					"bindingDependencies": ["TABDYN1"]
+				},
+				{
+					"componentType": "InputNumber",
+					"decimals": 0,
+					"id": "jrc3ye5q-QOP-lo6t1tp7",
+					"unit": "k€",
+					"response": {"name": "TABDYN2"},
+					"bindingDependencies": ["TABDYN2"]
+				},
+				{
+					"componentType": "InputNumber",
+					"decimals": 0,
+					"id": "jrc3ye5q-QOP-lo6tlrje",
+					"response": {"name": "TABDYN3"},
+					"bindingDependencies": ["TABDYN3"]
+				}
+			]
+		},
+		{
+			"id": "ji4d7eao",
+			"componentType": "Sequence",
+			"page": "3",
+			"label": {
+				"value": "\"End\"",
+				"type": "VTL|MD"
+			},
+			"conditionFilter": {
+				"value": "true",
+				"type": "VTL"
+			}
+		}
+	],
+	"variables": [
+		{
+			"variableType": "COLLECTED",
+			"name": "TABDYN1",
+			"values": {
+				"PREVIOUS": [null],
+				"COLLECTED": [null],
+				"FORCED": [null],
+				"EDITED": [null],
+				"INPUTED": [null]
+			}
+		},
+		{
+			"variableType": "COLLECTED",
+			"name": "TABDYN2",
+			"values": {
+				"PREVIOUS": [null],
+				"COLLECTED": [null],
+				"FORCED": [null],
+				"EDITED": [null],
+				"INPUTED": [null]
+			}
+		},
+		{
+			"variableType": "COLLECTED",
+			"name": "TABDYN3",
+			"values": {
+				"PREVIOUS": [null],
+				"COLLECTED": [null],
+				"FORCED": [null],
+				"EDITED": [null],
+				"INPUTED": [null]
+			}
+		},
+		{
+			"variableType": "CALCULATED",
+			"name": "FILTER_RESULT_TABDYN",
+			"expression": {
+				"value": "true",
+				"type": "VTL"
+			},
+			"inFilter": "false"
+		}
+	],
+	"cleaning": {},
+	"resizing": {}
+}

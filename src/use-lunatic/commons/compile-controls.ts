@@ -1,5 +1,4 @@
 import { isLoopComponent } from '../reducer/commons';
-import { resolveComponentControls } from '../reducer/resolve-component-controls';
 import { replaceComponentSequence } from '../replace-component-sequence';
 import type {
 	LunaticComponentDefinition,
@@ -10,6 +9,7 @@ import { Criticality, TypeOfControl } from '../type-source';
 import fillComponentExpressions from './fill-components/fill-component-expressions';
 import getComponentsFromState from './get-components-from-state';
 import getErrorsWithoutEmptyValue from './get-errors-without-empty-value';
+import { getComponentErrors } from '../reducer/resolve-component-controls/get-component-errors';
 
 export type StateForControls = Pick<
 	LunaticState,
@@ -24,10 +24,11 @@ function validateComponents(
 	components: LunaticComponentDefinition[]
 ): Record<string, LunaticError[]> {
 	const { pager } = state;
+
 	return components.reduce(function (errors, component) {
 		const { controls, id } = component;
 		if (Array.isArray(controls)) {
-			const componentErrors = resolveComponentControls(state, controls);
+			const componentErrors = getComponentErrors(component, state);
 			const { shallowIteration } = pager;
 			const idC =
 				shallowIteration !== undefined ? `${id}-${shallowIteration}` : id;
@@ -37,7 +38,7 @@ function validateComponents(
 			});
 		}
 
-		//Thanks to init which split basic Loops, we only go into unPaginatedLoops
+		// Thanks to init which split basic Loops, we only go into unPaginatedLoops
 		if (isLoopComponent(component)) {
 			const { components } = component;
 			const recurs = validateComponents(state, components);

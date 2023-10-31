@@ -7,18 +7,18 @@ import type { LunaticControl, LunaticError } from '../../type';
  * composants l'unité enquêtée.
  * Itération prend pour valeur le rang de l'unité stat au sein de l'unité enquêté.
  * Le rondpoint ne peut pas être placé dans une boucle car l'itération est effacée.
- * TODO intégrer cela dans le cadre de boucle de bloucle.
+ * TODO intégrer cela dans le cadre de boucle de boucle.
  */
 export function resolveRoundaboutControl(
 	state: StateForControls,
 	control: LunaticControl
-): LunaticError | undefined {
+): LunaticError | null {
 	const { executeExpression } = state;
 	const { criticality, errorMessage, id, typeOfControl, iterations } = control;
 	const value = control?.control?.value ?? 'true';
 
 	if (!iterations || iterations <= 0) {
-		return undefined;
+		return null;
 	}
 
 	const errors = Array.from({ length: iterations }, (_, k) => k)
@@ -37,5 +37,5 @@ export function resolveRoundaboutControl(
 		return { criticality, errorMessage: errors, id, typeOfControl };
 	}
 
-	return undefined;
+	return null;
 }
